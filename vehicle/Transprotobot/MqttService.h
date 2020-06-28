@@ -14,6 +14,6 @@ class MqttService {
   public:
     MqttService();
     void on();
-    Adafruit_MQTT_Publish& with(char* topicName);
+    Adafruit_MQTT_Publish* with(char* topicName);
 };
 #endif

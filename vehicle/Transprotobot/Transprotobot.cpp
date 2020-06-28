@@ -1,15 +1,15 @@
 #include "Transprotobot.h"
 Transprotobot::Transprotobot():
+    gsl(),
     vil(),
-    sil(),
-    gsl()
+    sil()
 {
 }
 void Transprotobot::init() {
   Serial.println("Transprotobot init ...");
   this->gsl.on();
+  this->sil.on();  
   this->vil.on();
-  this->sil.on();
   Serial.println("Transprotobot init done");
 }
 
