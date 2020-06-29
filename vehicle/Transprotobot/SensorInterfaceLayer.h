@@ -2,13 +2,14 @@
 #define SENSORINTERFACELAYER_H
 #include <Arduino.h>
 #include "GpsService.h"
+#include "GlobalServicesLayer.h"
 
 class SensorInterfaceLayer {
   private:
-    GpsService gpss;
+    GpsService _gpss;
     
   public:
-    SensorInterfaceLayer();
+    SensorInterfaceLayer(GlobalServicesLayer* gsl);
     void on();
     void read();
 };

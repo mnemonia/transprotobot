@@ -13,5 +13,6 @@ class GlobalServicesLayer {
     GlobalServicesLayer();
     void on();
     void off();
+    MqttService* mqtt();
 };
 #endif

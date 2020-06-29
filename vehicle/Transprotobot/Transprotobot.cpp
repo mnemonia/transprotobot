@@ -2,7 +2,8 @@
 Transprotobot::Transprotobot():
     gsl(),
     vil(),
-    sil()
+    sil(&gsl),
+    pcl(&gsl, &vil)
 {
 }
 void Transprotobot::init() {

@@ -5,7 +5,7 @@ class NetworkService {
   
   private:
     const char* ssid = "mesmonet1";
-    const char* password = "123getup";
+    const char* password = "123getup"; 
     
   public:
     NetworkService();

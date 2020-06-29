@@ -9,11 +9,12 @@ class MqttService {
   private:
      WiFiClient client;
      Adafruit_MQTT_Client mqtt;
-     Adafruit_MQTT_Publish topicA;
+     void connect();
 
   public:
     MqttService();
     void on();
-    Adafruit_MQTT_Publish* with(char* topicName);
+    void subscribe(char* topicName);
+    void publishDouble(char* topicName, double value);
 };
 #endif

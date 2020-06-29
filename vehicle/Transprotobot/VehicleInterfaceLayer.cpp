@@ -1,9 +1,14 @@
 #include "VehicleInterfaceLayer.h"
-VehicleInterfaceLayer::VehicleInterfaceLayer(): isToggle(false) {
-  pinMode(0, OUTPUT);
+
+VehicleInterfaceLayer::VehicleInterfaceLayer():
+   drive()
+{
+
 }
+
 void VehicleInterfaceLayer::on() {
   Serial.println("VehicleInterfaceLayer on");
+  this->drive.on();
 }
 
 void VehicleInterfaceLayer::read() {
@@ -12,10 +17,14 @@ void VehicleInterfaceLayer::read() {
 
 void VehicleInterfaceLayer::write() {
   Serial.println("VehicleInterfaceLayer write vehicle data");
-  if (this->isToggle) {
-     digitalWrite(0, HIGH);
-  } else {
-    digitalWrite(0, LOW);
-  }
-  this->isToggle = !this->isToggle; 
+}
+
+void VehicleInterfaceLayer::velocity(double v) {
+  Serial.println("VehicleInterfaceLayer velocity");
+  this->drive.velocity(v);
+}
+
+void VehicleInterfaceLayer::angle(double a) {
+  Serial.println("VehicleInterfaceLayer angle");
+  this->drive.angle(a);
 }

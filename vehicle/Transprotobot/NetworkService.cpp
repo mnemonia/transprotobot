@@ -6,9 +6,14 @@ NetworkService::NetworkService() {
 void NetworkService::on() {
   Serial.println("NetworkService on ");
   WiFi.begin(this->ssid, this->password);
+  int count = 0;
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    if (count > 10) {
+        break;
+    }
+    count++;
   }
   Serial.println("");
   Serial.println("WiFi connected");  

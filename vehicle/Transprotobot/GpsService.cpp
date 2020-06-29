@@ -4,7 +4,8 @@
 // Set to 'true' if you want to debug and listen to the raw GPS sentences
 #define GPSECHO  true
 
-GpsService::GpsService():
+GpsService::GpsService(GlobalServicesLayer* gsl):
+  _gsl(gsl),
   timer(millis())
 {
   this->serial = new SoftwareSerial(8, 7);
@@ -51,7 +52,7 @@ void GpsService::read() {
   // approximately every 2 seconds or so, print out the current stats
   if (millis() - this->timer > 2000) {
     this->timer = millis(); // reset the timer
-
+    // this->_gsl->mqtt()->publishDouble("/transprotobot/sil/wheel/velocity", 0.75);
     Serial.print("\nTime: ");
     if (this->gps->hour < 10) { Serial.print('0'); }
     Serial.print(this->gps->hour, DEC); Serial.print(':');
@@ -70,6 +71,7 @@ void GpsService::read() {
     Serial.print(this->gps->month, DEC); Serial.print("/20");
     Serial.println(this->gps->year, DEC);
     Serial.print("Fix: "); Serial.print((int)this->gps->fix);
+    this->_gsl->mqtt()->publishDouble("/transprotobot/sil/gps/fix", (double)this->gps->fix);
     Serial.print(" quality: "); Serial.println((int)this->gps->fixquality);
     if (this->gps->fix) {
       Serial.print("Location: ");

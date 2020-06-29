@@ -4,6 +4,7 @@
 #include "VehicleInterfaceLayer.h"
 #include "SensorInterfaceLayer.h"
 #include "GlobalServicesLayer.h"
+#include "PlanningAndControlLayer.h"
 
 class Transprotobot {
   
@@ -11,6 +12,7 @@ class Transprotobot {
     GlobalServicesLayer gsl;
     VehicleInterfaceLayer vil;
     SensorInterfaceLayer sil;
+    PlanningAndControlLayer pcl;
     
   public:
     Transprotobot();

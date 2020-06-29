@@ -1,15 +1,15 @@
 #include "SensorInterfaceLayer.h"
-SensorInterfaceLayer::SensorInterfaceLayer():
-  gpss()
+SensorInterfaceLayer::SensorInterfaceLayer(GlobalServicesLayer* gsl):
+  _gpss(gsl)
 {
   
 }
 void SensorInterfaceLayer::on() {
   Serial.println("SensorInterfaceLayer on");
-  this->gpss.on();
+  this->_gpss.on();
 }
 
 void SensorInterfaceLayer::read() {
   Serial.println("SensorInterfaceLayer read in all sensor values");
-  this->gpss.read();
+  this->_gpss.read();
 }
