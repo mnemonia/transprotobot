@@ -1,9 +1,11 @@
 #include "MqttService.h"
 
-MqttService::MqttService(Adafruit_MQTT_Client* mmqtt, Adafruit_MQTT_Subscribe* vs):
+MqttService::MqttService(Adafruit_MQTT_Client* mmqtt, Adafruit_MQTT_Subscribe* vs, Adafruit_MQTT_Subscribe* ds):
 mqtt(mmqtt),
 velocitySubscription(vs),
-func()
+directionSubscription(ds),
+func(),
+callbackDirectionFunc()
 {
 }
 // Function to connect and reconnect as necessary to the MQTT server.
@@ -37,18 +39,13 @@ void MqttService::on() {
   connect();
 }
 
-void MqttService::subscribe2(char* topicName, SubscriptionCallbackDouble* f) {
-  Serial.print("Subscribe to "); Serial.println(topicName);
+void MqttService::subscribeVelocity(SubscriptionCallbackDouble* f) {
+  Serial.print("Subscribe to velocity");
   this->func = f;
-  //Adafruit_MQTT_Subscribe* s = new Adafruit_MQTT_Subscribe(mqtt, topicName, MQTT_QOS_1); //
- // s->setCallback(slidercallback);
-  //slidercallback(99.9);
- // if(!mqtt->subscribe(velocitySubscription)) {
- //     Serial.println(F("Subscribe failed"));
- // } else {
- //     Serial.println(F("Subscribe OK!"));
- // }
-  publishDouble(topicName, 0.33);
+}
+void MqttService::subscribeDirection(SubscriptionCallbackDouble* f) {
+  Serial.print("Subscribe to direction");
+  this->callbackDirectionFunc = f;
 }
 
 void MqttService::publishDouble(char* topicName, double value){
@@ -73,5 +70,11 @@ void MqttService::tick() {
 void MqttService::callbackVelocity(double value) {
   Serial.print("MqttService::callbackVelocity ");
   Serial.println(value);
-  func->handle(value);
+  func->handle(0, value);
+}
+
+void MqttService::callbackDirection(double value) {
+  Serial.print("MqttService::callbackDirection ");
+  Serial.println(value);
+  callbackDirectionFunc->handle(1, value);
 }

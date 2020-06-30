@@ -3,7 +3,7 @@
 
 class SubscriptionCallbackDouble {
   public:
-    virtual void handle(const double value) = 0;  
+    virtual void handle(const int mode, const double value) = 0;  
 };
 
 #endif

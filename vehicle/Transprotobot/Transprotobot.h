@@ -18,7 +18,7 @@ class Transprotobot: public Tickable {
     PlanningAndControlLayer pcl;
     
   public:
-    Transprotobot(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription);
+    Transprotobot(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription, Adafruit_MQTT_Subscribe* directionSubscription);
     void init();
     virtual void tick();
     GlobalServicesLayer gsl();

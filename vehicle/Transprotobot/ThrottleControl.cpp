@@ -9,14 +9,22 @@ ThrottleControl::ThrottleControl(GlobalServicesLayer* gsl, VehicleInterfaceLayer
 
 void ThrottleControl::on() {
   Serial.println("ThrottleControl on");
-  this->pGsl->mqtt()->subscribe2("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/pac/tc/velocity", this);
+  this->pGsl->mqtt()->subscribeVelocity(this);
+  this->pGsl->mqtt()->subscribeDirection(this);
   this->changeDirection(0);
   this->changeVelocity(0.0);
 }
 
-void ThrottleControl::handle(const double value) {
+void ThrottleControl::handle(const int mode, const double value) {
    Serial.println("ThrottleControl handle");
-   this->changeVelocity(value);
+   switch(mode) {
+      case 1:
+          this->changeDirection(value);
+          break;
+      case 0:
+      default:
+          this->changeVelocity(value);
+   }
 }
 
 void ThrottleControl::changeVelocity (const double val) {

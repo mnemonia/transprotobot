@@ -1,7 +1,7 @@
 #include "GlobalServicesLayer.h"
-GlobalServicesLayer::GlobalServicesLayer(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription):
+GlobalServicesLayer::GlobalServicesLayer(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription, Adafruit_MQTT_Subscribe* directionSubscription):
   ns(),
-  mqttService(mqtt, velocitySubscription)
+  mqttService(mqtt, velocitySubscription, directionSubscription)
 {
   
 }

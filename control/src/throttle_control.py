@@ -14,5 +14,14 @@ class ThrottleControl():
     def velocity(self, vel):
         self.LOG.info('velocity')
         self._vel = vel
-        self._gsl.publish('pac/tc/velocity', self._vel)
+        self._gsl.publish('pac/tc/velocity', vel)
+
+    def stop(self):
+        self._gsl.publish('pac/tc/direction', 0)
+
+    def fwd(self):
+        self._gsl.publish('pac/tc/direction', 1)
+
+    def bwd(self):
+        self._gsl.publish('pac/tc/direction', 2)
 

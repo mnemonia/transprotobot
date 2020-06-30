@@ -5,7 +5,7 @@ class SteeringControl():
 
     def __init__(self, gsl):
         self._gsl = gsl
-        self._angle = 0
+        self.angle(0)
 
     def on(self):
         self.LOG.info('on')

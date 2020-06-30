@@ -1,6 +1,6 @@
 #include "Transprotobot.h"
-Transprotobot::Transprotobot(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription):
-    _gsl(mqtt, velocitySubscription),
+Transprotobot::Transprotobot(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription, Adafruit_MQTT_Subscribe* directionSubscription):
+    _gsl(mqtt, velocitySubscription, directionSubscription),
     vil(),
     sil(&_gsl),
     pcl(&_gsl, &vil)

@@ -15,6 +15,6 @@ class ThrottleControl: public SubscriptionCallbackDouble {
   public:
     ThrottleControl(GlobalServicesLayer* gsl, VehicleInterfaceLayer* vil);
     void on();
-    virtual void handle(const double value);
+    virtual void handle(const int mode, const double value);
 };
 #endif

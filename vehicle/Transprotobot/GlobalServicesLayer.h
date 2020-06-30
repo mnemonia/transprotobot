@@ -12,7 +12,7 @@ class GlobalServicesLayer {
     MqttService mqttService;
 
   public:
-    GlobalServicesLayer(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription);
+    GlobalServicesLayer(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription, Adafruit_MQTT_Subscribe* directionSubscription);
     void on();
     void off();
     MqttService* mqtt();

@@ -11,15 +11,19 @@ class MqttService: public Tickable {
   private:
      Adafruit_MQTT_Client* mqtt;
      Adafruit_MQTT_Subscribe* velocitySubscription;
+     Adafruit_MQTT_Subscribe* directionSubscription;
      SubscriptionCallbackDouble* func;
+     SubscriptionCallbackDouble* callbackDirectionFunc;
      void connect();
 
   public:
-    MqttService(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription);
+    MqttService(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription, Adafruit_MQTT_Subscribe* directionSubscription);
     void on();
-    void subscribe2(char* topicName, SubscriptionCallbackDouble* func);
+    void subscribeVelocity(SubscriptionCallbackDouble* func);
+    void subscribeDirection(SubscriptionCallbackDouble* func);
     void publishDouble(char* topicName, double value);
     virtual void tick();
     void callbackVelocity(double value);
+    void callbackDirection(double value);
 };
 #endif
