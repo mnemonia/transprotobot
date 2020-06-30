@@ -9,6 +9,7 @@ class ThrottleControl():
 
     def on(self):
         self.LOG.info('on')
+        self.velocity(self._vel)
 
     def velocity(self, vel):
         self.LOG.info('velocity')

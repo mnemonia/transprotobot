@@ -5,14 +5,13 @@
 
 class VehicleInterfaceLayer {
   private:
-    Drive drive;
+    Drive _drive;
     
   public:
     VehicleInterfaceLayer();
     void on();
     void read();
     void write();
-    void velocity(double v);
-    void angle(double a);
+    Drive* drive();
 };
 #endif

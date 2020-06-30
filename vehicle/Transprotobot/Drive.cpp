@@ -9,6 +9,7 @@ Drive::Drive():
 }
 void Drive::on() {
   Serial.println("Drive on");
+  this->_afms.begin();
 }
 
 void Drive::angle(double a) {

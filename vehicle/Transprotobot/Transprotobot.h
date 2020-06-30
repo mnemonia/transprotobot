@@ -5,18 +5,22 @@
 #include "SensorInterfaceLayer.h"
 #include "GlobalServicesLayer.h"
 #include "PlanningAndControlLayer.h"
+#include "Tickable.h"
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
 
-class Transprotobot {
+class Transprotobot: public Tickable {
   
   private:
-    GlobalServicesLayer gsl;
+    GlobalServicesLayer _gsl;
     VehicleInterfaceLayer vil;
     SensorInterfaceLayer sil;
     PlanningAndControlLayer pcl;
     
   public:
-    Transprotobot();
+    Transprotobot(Adafruit_MQTT_Client* mqtt, Adafruit_MQTT_Subscribe* velocitySubscription);
     void init();
-    void tick();
+    virtual void tick();
+    GlobalServicesLayer gsl();
 };
 #endif

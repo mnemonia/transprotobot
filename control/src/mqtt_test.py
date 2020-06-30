@@ -7,10 +7,11 @@ def on_connect(client, userdata, flags, rc):
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     #client.subscribe("$SYS/#")
-    client.subscribe("/transprotobot/pac/tc/velocity")
-    client.subscribe("/transprotobot/pac/sc/angle")
-    client.subscribe("/transprotobot/sil/wheel/velocity")
-    client.subscribe('/transprotobot/sil/gps/fix')
+    client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/pac/tc/velocity")
+    client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/pac/sc/angle")
+    client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/fix')
+    client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/wheel/velocity")
+    client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/wheel/direction')
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):

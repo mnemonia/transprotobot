@@ -9,9 +9,10 @@ class MqttService():
 
     def on(self):
         self.LOG.info('connecting ...')
-        self.client.connect("localhost", 1883, 60)
+        self.client.connect("test.mosquitto.org", 1883, 60)
         self.LOG.info('connected')
 
     def publish(self, topic, message):
+        self.LOG.info(topic)
         self.client.publish(topic, message)
 

@@ -1,14 +1,14 @@
 #include "VehicleInterfaceLayer.h"
 
 VehicleInterfaceLayer::VehicleInterfaceLayer():
-   drive()
+   _drive()
 {
 
 }
 
 void VehicleInterfaceLayer::on() {
   Serial.println("VehicleInterfaceLayer on");
-  this->drive.on();
+  this->_drive.on();
 }
 
 void VehicleInterfaceLayer::read() {
@@ -19,12 +19,6 @@ void VehicleInterfaceLayer::write() {
   Serial.println("VehicleInterfaceLayer write vehicle data");
 }
 
-void VehicleInterfaceLayer::velocity(double v) {
-  Serial.println("VehicleInterfaceLayer velocity");
-  this->drive.velocity(v);
-}
-
-void VehicleInterfaceLayer::angle(double a) {
-  Serial.println("VehicleInterfaceLayer angle");
-  this->drive.angle(a);
+Drive* VehicleInterfaceLayer::drive() {
+  return &this->_drive;
 }
