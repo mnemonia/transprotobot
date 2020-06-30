@@ -17,8 +17,10 @@ void Drive::angle(double a) {
 }
 
 void Drive::velocity(double v) {
-  Serial.println("Drive set velocity");
-  uint8_t vel = map(v, 0, 1.0, 0, 255);
+  Serial.print("Drive set velocity ");
+  v *= 100;
+  uint8_t vel = map(v, 0, 100, 0, 255);
+  Serial.println(vel);
   this->_afms.getMotor(1)->setSpeed(vel);
 }
 

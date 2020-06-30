@@ -3,8 +3,8 @@ from path_planner import PathPlanner
 from throttle_control import ThrottleControl
 from steering_control import SteeringControl
 
-class PlanningAndExportLayer():
-    LOG = logging.getLogger('PlanningAndExportLayer')
+class PlanningAndControlLayer():
+    LOG = logging.getLogger('PlanningAndControlLayer')
 
     def __init__(self, gsl):
         self.LOG.info('init')

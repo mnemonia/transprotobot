@@ -4,11 +4,18 @@
 // Set to 'true' if you want to debug and listen to the raw GPS sentences
 #define GPSECHO  true
 
+#define TX_PIN 15
+#define RX_PIN 13
+// Connect the GPS Power pin to 3.3V
+// Connect the GPS Ground pin to ground
+// Connect the GPS TX (transmit) pin to Digital 10
+// Connect the GPS RX (receive) pin to Digital 7
+
 GpsService::GpsService(GlobalServicesLayer* gsl):
   _gsl(gsl),
   timer(millis())
 {
-  this->serial = new SoftwareSerial(8, 7);
+  this->serial = new SoftwareSerial(TX_PIN, RX_PIN);
   this->gps = new Adafruit_GPS(this->serial);
 }
 
@@ -52,7 +59,7 @@ void GpsService::read() {
   // approximately every 2 seconds or so, print out the current stats
   if (millis() - this->timer > 2000) {
     this->timer = millis(); // reset the timer
-    // this->_gsl->mqtt()->publishDouble("/transprotobot/sil/wheel/velocity", 0.75);
+    // this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/wheel/velocity", 0.75);
     Serial.print("\nTime: ");
     if (this->gps->hour < 10) { Serial.print('0'); }
     Serial.print(this->gps->hour, DEC); Serial.print(':');
@@ -71,18 +78,25 @@ void GpsService::read() {
     Serial.print(this->gps->month, DEC); Serial.print("/20");
     Serial.println(this->gps->year, DEC);
     Serial.print("Fix: "); Serial.print((int)this->gps->fix);
-    this->_gsl->mqtt()->publishDouble("/transprotobot/sil/gps/fix", (double)this->gps->fix);
     Serial.print(" quality: "); Serial.println((int)this->gps->fixquality);
     if (this->gps->fix) {
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/milliseconds", (double)this->gps->milliseconds);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/fix", (double)this->gps->fix);
       Serial.print("Location: ");
       Serial.print(this->gps->latitude, 4); Serial.print(this->gps->lat);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude", (double)this->gps->latitude);
       Serial.print(", ");
       Serial.print(this->gps->longitude, 4); Serial.println(this->gps->lon);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude", (double)this->gps->longitude);
 
       Serial.print("Speed (knots): "); Serial.println(this->gps->speed);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/speed", (double)this->gps->speed);
       Serial.print("Angle: "); Serial.println(this->gps->angle);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/angle", (double)this->gps->angle);
       Serial.print("Altitude: "); Serial.println(this->gps->altitude);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude", (double)this->gps->altitude);
       Serial.print("Satellites: "); Serial.println((int)this->gps->satellites);
+      this->_gsl->mqtt()->publishDouble("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/satellites", (double)this->gps->satellites);
     }
   }
 }

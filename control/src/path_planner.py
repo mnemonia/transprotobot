@@ -11,6 +11,6 @@ class PathPlanner():
     def on(self):
         self.LOG.info('on')
         self._sc.angle(0)
-        self._tc.fwd()
-        self._tc.velocity(0.5)
+        self._tc.stop()
+        self._tc.velocity(0)
 

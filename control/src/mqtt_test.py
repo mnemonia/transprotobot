@@ -12,6 +12,8 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/fix')
     client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/wheel/velocity")
     client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/wheel/direction')
+    client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude')
+    client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude')
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
