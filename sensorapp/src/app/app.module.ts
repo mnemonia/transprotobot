@@ -13,7 +13,15 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {MotionService} from './services/sensor/motion.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {OrientationService} from './services/sensor/orientation.service';
+import {MqttModule, IMqttServiceOptions} from "ngx-mqtt";
+import {TransbotMqttService} from "./services/mqtt/mqtt.service";
 
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: 'test.mosquitto.org',
+  port: 1883,
+  protocol: "ws",
+  path: '',
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +29,7 @@ import {OrientationService} from './services/sensor/orientation.service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
     AppRoutingModule
   ],
   providers: [
@@ -28,6 +37,7 @@ import {OrientationService} from './services/sensor/orientation.service';
     SplashScreen,
     Geolocation,
     GpsService,
+    TransbotMqttService,
       OrientationService,
       MotionService,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
