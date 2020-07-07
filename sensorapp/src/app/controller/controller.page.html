@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Transbot Controller
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+  <ion-list-header>GPS</ion-list-header>
+  <ion-item>
+    <ion-label>Position</ion-label>
+    <ion-text>{{geo_location_canonical}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Altitude</ion-label>
+    <ion-text>{{altitude}} müM</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Time</ion-label>
+    <ion-text>{{time_canonical}}</ion-text>
+  </ion-item>
+</ion-list>
+  <ion-list>
+    <ion-list-header>Heading</ion-list-header>
+    <ion-item>
+      <ion-label>Magnetic</ion-label>
+      <ion-text>{{geo_location_canonical}}°</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>True</ion-label>
+      <ion-text>{{altitude}}°</ion-text>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>Acceleration</ion-list-header>
+    <ion-item>
+      <ion-label>x</ion-label>
+      <ion-text>{{geo_location_canonical}} m/s^2</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>y</ion-label>
+      <ion-text>{{altitude}} m/s^2</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>z</ion-label>
+      <ion-text>{{altitude}} m/s^2</ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

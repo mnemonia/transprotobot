@@ -1,0 +1,7 @@
+{
+  "name": "sensorapp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
