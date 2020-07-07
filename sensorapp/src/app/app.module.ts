@@ -12,9 +12,7 @@ import {GpsService} from './services/sensor/gps.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {MotionService} from './services/sensor/motion.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
-import { DeviceMotion } from '@ionic-native/device-motion/ngx';
 import {OrientationService} from './services/sensor/orientation.service';
-import {DeviceOrientation} from '@ionic-native/device-orientation/ngx';
 
 
 @NgModule({
@@ -30,8 +28,6 @@ import {DeviceOrientation} from '@ionic-native/device-orientation/ngx';
     SplashScreen,
     Geolocation,
     GpsService,
-    DeviceMotion,
-    DeviceOrientation,
       OrientationService,
       MotionService,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},

@@ -21,34 +21,35 @@
     <ion-text>{{altitude}} müM</ion-text>
   </ion-item>
   <ion-item>
+    <ion-label>Accuracy</ion-label>
+    <ion-text>{{accuracy}} m</ion-text>
+  </ion-item>
+  <ion-item>
     <ion-label>Time</ion-label>
     <ion-text>{{time_canonical}}</ion-text>
   </ion-item>
-</ion-list>
-  <ion-list>
-    <ion-list-header>Heading</ion-list-header>
     <ion-item>
-      <ion-label>Magnetic</ion-label>
-      <ion-text>{{geo_location_canonical}}°</ion-text>
+      <ion-label>Heading</ion-label>
+      <ion-text>{{heading}}°</ion-text>
     </ion-item>
     <ion-item>
-      <ion-label>True</ion-label>
-      <ion-text>{{altitude}}°</ion-text>
+      <ion-label>Speed</ion-label>
+      <ion-text>{{speed}} m/s</ion-text>
     </ion-item>
   </ion-list>
   <ion-list>
     <ion-list-header>Acceleration</ion-list-header>
     <ion-item>
       <ion-label>x</ion-label>
-      <ion-text>{{geo_location_canonical}} m/s^2</ion-text>
+      <ion-text>{{x}} m/s^2</ion-text>
     </ion-item>
     <ion-item>
       <ion-label>y</ion-label>
-      <ion-text>{{altitude}} m/s^2</ion-text>
+      <ion-text>{{y}} m/s^2</ion-text>
     </ion-item>
     <ion-item>
       <ion-label>z</ion-label>
-      <ion-text>{{altitude}} m/s^2</ion-text>
+      <ion-text>{{z}} m/s^2</ion-text>
     </ion-item>
   </ion-list>
 </ion-content>

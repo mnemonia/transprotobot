@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
-import {Observable, timer} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MotionService {
 
-  constructor(private deviceMotion: DeviceMotion) { }
+  constructor() { }
 
-  motion(): Observable<DeviceMotionAccelerationData> {
-    return this.deviceMotion.watchAcceleration();
+  motion(): Observable<any> {
+    return of({x: 1, y: 1, z: 0});
   }
 }
