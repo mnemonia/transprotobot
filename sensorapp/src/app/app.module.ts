@@ -18,7 +18,7 @@ import {TransbotMqttService} from "./services/mqtt/mqtt.service";
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: 'test.mosquitto.org',
-  port: 1883,
+  port: 8080,
   protocol: "ws",
   path: '',
 };

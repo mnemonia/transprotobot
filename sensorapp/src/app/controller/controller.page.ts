@@ -12,7 +12,8 @@ import {IMqttMessage} from "ngx-mqtt/src/index";
   styleUrls: ['./controller.page.scss'],
 })
 export class ControllerPage implements OnInit {
-  geo_location_canonical = '';
+    geo_longitude = 0;
+    geo_latitude = 0;
   altitude = 0;
     altitude_from_mqtt = '';
   time_canonical = '';
@@ -68,29 +69,19 @@ export class ControllerPage implements OnInit {
           this.gpsService.gps().subscribe(
               (resp: any) => {
                   console.info('GPS', JSON.stringify(resp));
-                  this.geo_location_canonical = 'Lat: ' + resp.coords.latitude + ', Lon: ' + resp.coords.longitude;
+                  this.geo_longitude = resp.coords.longitude;
+                  this.geo_latitude = resp.coords.latitude;
                   this.altitude = resp.coords.altitude;
                   this.speed = resp.coords.speed;
                   this.heading = resp.coords.heading;
                   this.accuracy = resp.coords.accuracy;
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude', resp.coords.latitude).subscribe(() => {
-                      console.info('published latitude');
-                  });
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude', resp.coords.longitude).subscribe(() => {
-                      console.info('published');
-                  });
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude', resp.coords.altitude).subscribe(() => {
-                      console.info('published');
-                  });
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/speed', resp.coords.speed).subscribe(() => {
-                      console.info('published');
-                  });
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/heading', resp.coords.heading).subscribe(() => {
-                      console.info('published');
-                  });
-                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/accuracy', resp.coords.accuracy).subscribe(() => {
-                      console.info('published');
-                  });
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude', resp.coords.latitude);
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude', resp.coords.longitude);
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude', resp.coords.altitude);
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/speed', resp.coords.speed);
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/heading', resp.coords.heading);
+                  this.mgttService.publishNumber('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/accuracy', resp.coords.accuracy);
+                  // this.mgttService.publishJSON('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps', JSON.stringify(resp.coords);
               },
               (err) => console.error(err),
               () => {}

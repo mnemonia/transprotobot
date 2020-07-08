@@ -13,8 +13,12 @@
 <ion-list>
   <ion-list-header>GPS</ion-list-header>
   <ion-item>
-    <ion-label>Position</ion-label>
-    <ion-text>{{geo_location_canonical}}</ion-text>
+    <ion-label>Longidude</ion-label>
+    <ion-text>{{geo_longitude}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Latitude</ion-label>
+    <ion-text>{{geo_latitude}}</ion-text>
   </ion-item>
   <ion-item>
     <ion-label>Altitude<p>{{altitude_from_mqtt}} müM</p></ion-label>

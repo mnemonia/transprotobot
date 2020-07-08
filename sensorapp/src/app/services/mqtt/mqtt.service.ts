@@ -8,13 +8,13 @@ import {MqttService, IMqttMessage} from "ngx-mqtt";
 export class TransbotMqttService {
 
   constructor(
-      private _mqttService: MqttService,
+      private _mqttService: MqttService
   ) {
-
+    this._mqttService.connect();
   }
 
-  publishNumber(topic: string, value: number): Observable<void> {
-    return this._mqttService.publish(topic, '' + value);
+  publishNumber(topic: string, value: number) {
+    this._mqttService.unsafePublish(topic, '' + value, {qos: 1, retain: true});
   }
 
   topic(topicName: string): Observable<IMqttMessage> {
