@@ -2,6 +2,7 @@ import logging
 from mqtt_service import MqttService
 import serial
 import json
+import platform
 
 class GlobalServices():
     LOG = logging.getLogger('GlobalServices')
@@ -12,7 +13,12 @@ class GlobalServices():
     def on(self):
         self.LOG.info('Starting GlobalServices')
         self.mqtt.on()
-        self._ser = serial.Serial('COM4',baudrate=9600,timeout=1,parity=serial.PARITY_NONE,bytesize=serial.EIGHTBITS,rtscts=1)
+
+        if platform.system() == 'Linux':
+            self._ser = serial.Serial('/dev/ttyACM0',baudrate=9600,timeout=1)
+        else:
+            self._ser = serial.Serial('COM4',baudrate=9600,timeout=1,parity=serial.PARITY_NONE,bytesize=serial.EIGHTBITS,rtscts=1)
+
         self.LOG.info('USB-port: {}'.format(self._ser.name))
 
     def publish(self, topic, message):
