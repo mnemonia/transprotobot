@@ -5,13 +5,18 @@ class SteeringControl():
 
     def __init__(self, gsl):
         self._gsl = gsl
-        self.angle(0)
+        self._angle = 0
 
     def on(self):
         self.LOG.info('on')
 
     def angle(self, a):
-        self.LOG.info('angle')
+        self.LOG.info('angle {}'.format(a))
         self._angle = a
         self._gsl.publish('pac/sc/angle', self._angle)
+        res = dict();
+        res["command"] = "vil_adjust_angle"
+        res["value"] = self._angle
+        self._gsl.publishToVehicle(res)
+
 

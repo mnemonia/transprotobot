@@ -58,3 +58,6 @@ class SensorInterfaceLayer():
 
     def read(self):
         self._gpsService.read()
+
+    def gps(self):
+        return self._gpsService
