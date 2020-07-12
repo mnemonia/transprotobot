@@ -26,6 +26,8 @@ class GlobalServices():
 
     def readFromVehicle(self):
         self.LOG.info('readFromVehicle')
+        if not self._ser.in_waiting:
+            return None
         return self._ser.readline()
 
     def publishToVehicle(self, message):
