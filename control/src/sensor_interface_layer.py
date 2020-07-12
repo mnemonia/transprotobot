@@ -7,6 +7,7 @@ class GpsService():
         self._gsl = gsl
         self._latitude = 0
         self._longitude = 0
+        self._heading = 0
 
     def on(self):
         self.LOG.info('GpsService on ...')
@@ -22,6 +23,7 @@ class GpsService():
             client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/angle')
             client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude')
             client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/satellites')
+            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading')
 
         def on_message(client, userdata, msg):
             self.LOG.info(msg.topic+" "+str(msg.payload))
@@ -29,6 +31,8 @@ class GpsService():
                 self._latitude = float(msg.payload)
             elif(msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude'):
                 self._longitude = float(msg.payload)
+            elif(msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading'):
+                self._heading = float(msg.payload)
 
         client.on_connect = on_connect
         client.on_message = on_message

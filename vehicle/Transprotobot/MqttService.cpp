@@ -60,7 +60,7 @@ void MqttService::publishDouble(char* topicName, double value){
 void MqttService::tick() {
     Serial.println("MqttService tick ...");
     connect();
-    mqtt->processPackets(10000);
+    mqtt->processPackets(20);
     if(! this->mqtt->ping()) {
        this->mqtt->disconnect();
     }

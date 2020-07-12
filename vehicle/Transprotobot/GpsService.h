@@ -8,12 +8,12 @@
 class GpsService {
   private:
    GlobalServicesLayer* _gsl;
-   SoftwareSerial* serial;
-   Adafruit_GPS* gps;
-   uint32_t timer;
+   uint32_t _timer;
+   Adafruit_GPS* _gps;
     
   public:
-    GpsService(GlobalServicesLayer* gsl);
+    GpsService(GlobalServicesLayer* gsl, SoftwareSerial* serial, Adafruit_GPS* gps);
+    ~GpsService();
     void on();
     void read();
 };

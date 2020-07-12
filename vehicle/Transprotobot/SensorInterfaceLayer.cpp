@@ -1,6 +1,6 @@
 #include "SensorInterfaceLayer.h"
-SensorInterfaceLayer::SensorInterfaceLayer(GlobalServicesLayer* gsl):
-  _gpss(gsl)
+SensorInterfaceLayer::SensorInterfaceLayer(GlobalServicesLayer* gsl, SoftwareSerial* serial, Adafruit_GPS* gps):
+  _gpss(gsl, serial, gps)
 {
   
 }
