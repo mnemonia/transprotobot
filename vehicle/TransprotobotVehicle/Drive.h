@@ -18,5 +18,6 @@ class Drive {
     void fwd();
     void bwd();
     void stop();
+    void regulate();
 };
 #endif

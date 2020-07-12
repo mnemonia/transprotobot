@@ -21,5 +21,6 @@ class TransprotobotVehicle: public Tickable {
     virtual void tick();
     GlobalServicesLayer* gsl();
     void read();
+    void regulate();
 };
 #endif

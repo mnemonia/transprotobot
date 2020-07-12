@@ -39,3 +39,7 @@ void Drive::stop() {
   this->_afms.getMotor(1)->setSpeed(0);
   this->_afms.getMotor(1)->run(RELEASE);
 }
+
+void Drive::regulate() {
+  
+}

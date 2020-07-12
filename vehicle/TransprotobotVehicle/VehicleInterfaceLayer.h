@@ -12,6 +12,7 @@ class VehicleInterfaceLayer {
     void on();
     void read();
     void write();
+    void regulate();
     Drive* drive();
 };
 #endif

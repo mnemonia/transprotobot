@@ -33,3 +33,7 @@ void TransprotobotVehicle::read() {
   _sil.read();
   _vil.read();  
 }
+
+void TransprotobotVehicle::regulate() {
+  _vil.regulate();
+}

@@ -22,8 +22,9 @@ class PathPlanner():
         self.LOG.info('heading {}'.format(self._sil.gps()._heading))
         self.LOG.info('motor velocity {}'.format(self._vil._velocity))
         self.LOG.info('steering angle {}'.format(self._vil._angle))
-        self._tc.velocity(1.0)
-        self._sc.angle(0.2)
+        self._tc.fwd()
+        self._tc.velocity(0.5)
+        self._sc.angle(0.8)
 
 
 

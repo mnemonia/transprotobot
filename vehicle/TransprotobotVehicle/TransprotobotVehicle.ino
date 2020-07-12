@@ -4,15 +4,17 @@
 // The value will quickly become too large for an int to store
 unsigned long previousTickMillis = 0;        // will store last time LED was updated
 unsigned long previousSensorMillis = 0;        // will store last time LED was updated
+unsigned long previousRegulatorMillis = 0;
 
 // constants won't change:
 const long tickInterval = 1000;           // interval at which to blink (milliseconds)
 const long sensorInterval = 250;           // interval at which to blink (milliseconds)
+const long regulatorInterval = 25;
 
 TransprotobotVehicle bot = TransprotobotVehicle();
 
 void setup() {
-  Serial.begin(9600);  
+  Serial.begin(9600);
   bot.on();
 }
 
@@ -29,7 +31,14 @@ void loop() {
   if (currentMillis - previousTickMillis >= tickInterval) {
     // save the last time you blinked the LED
     previousTickMillis = currentMillis;
-    
+
     bot.tick();
+  }
+
+  if (currentMillis - previousRegulatorMillis >= regulatorInterval) {
+    // save the last time you blinked the LED
+    previousRegulatorMillis = currentMillis;
+
+    bot.regulate();
   }
 }
