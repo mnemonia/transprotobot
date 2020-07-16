@@ -11,7 +11,7 @@ Ref:
 """
 import logging
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import cubic_spline_planner
 from sensor_interface_layer import GpsMath
 
@@ -128,7 +128,7 @@ class StandleyController():
 
         self.LOG.info("cx: {}".format(self.x))
 
-        if self.show_animation:  # pragma: no cover
+        """ if self.show_animation:  # pragma: no cover
             plt.cla()
             # for stopping simulation with the esc key.
             plt.gcf().canvas.mpl_connect('key_release_event',
@@ -139,7 +139,7 @@ class StandleyController():
             plt.axis("equal")
             plt.grid(True)
             plt.title("Speed[km/h]:" + str(self.state.v * 3.6)[:4] + ", Angle[rad]:" + str(np.rad2deg(self.state.yaw))[:4])
-            plt.pause(0.1)
+            plt.pause(0.1) """
 
     def isFinished(self):
         return self.target_idx >= self.last_idx
