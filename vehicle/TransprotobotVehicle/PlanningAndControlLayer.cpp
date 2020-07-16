@@ -9,16 +9,15 @@ PlanningAndControlLayer::PlanningAndControlLayer(GlobalServicesLayer* gsl, Vehic
   _isDirtyDirection(true),
   _velocity(0.0),
   _angle(0.0),
-  _direction(0)
+  _direction(1)
 {
-
 }
 void PlanningAndControlLayer::on() {
   //  Serial.println("PlanningAndControlLayer on");
   while (!Serial) continue;
 }
 void PlanningAndControlLayer::tick() {
-  //  Serial.println("PlanningAndControlLayer tick");
+  // Serial.println("PlanningAndControlLayer tick");
   if(_isDirtyDirection) {
     switch(_direction) {
       case 1:
@@ -54,23 +53,29 @@ void PlanningAndControlLayer::read() {
     if (err == DeserializationError::Ok) {
       const char* command = doc["command"];
       if (strcmp(command, "vil_adjust_angle") == 0) {
-        _angle = doc["value"];
-        _isDirtyAngle = true;
-        doc["command"] = "vil_update_angle";
-        serializeJson(doc, Serial);
-        Serial.println();
+        if(_angle != doc["value"]) {
+          _angle = doc["value"];
+          _isDirtyAngle = true;
+          doc["command"] = "vil_update_angle";
+          serializeJson(doc, Serial);
+          Serial.println();
+        }
       } else if (strcmp(command, "vil_adjust_velocity") == 0) {
-        _velocity = doc["value"];
-        _isDirtyVelocity = true;
-        doc["command"] = "vil_update_velocity";
-        serializeJson(doc, Serial);
-        Serial.println();
+        if(_velocity != doc["value"]) {
+          _velocity = doc["value"];
+          _isDirtyVelocity = true;
+          doc["command"] = "vil_update_velocity";
+          serializeJson(doc, Serial);
+          Serial.println();
+        }
       } else if (strcmp(command, "vil_adjust_direction") == 0) {
-        _direction = doc["value"];
-        _isDirtyDirection = true;
-        doc["command"] = "vil_update_direction";
-        serializeJson(doc, Serial);
-        Serial.println();
+        if(_direction != doc["value"]) {
+          _direction = doc["value"];
+          _isDirtyDirection = true;
+          doc["command"] = "vil_update_direction";
+          serializeJson(doc, Serial);
+          Serial.println();
+        }
       }
       
     }

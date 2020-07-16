@@ -24,26 +24,25 @@ class VehicleInterfaceLayer():
         self.LOG.info('on')
 
     def read(self):
-        self.LOG.info('Read VIL and SIL updates')
+        self.LOG.info('Read available VIL and SIL updates')
         line = self._gsl.readFromVehicle()
-        while((line) != None):
-            
-            #line = self._gsl.readFromVehicle()
-            if len(line) == 0:
-                return
-
-            self.LOG.info(line.decode("utf-8"))
+        self.LOG.warning('line {}'.format(line))
+        while(None != line):
+            self.LOG.info('-------> Update: {}'.format(line.decode("utf-8")))
             try:
                 data = json.loads(line.decode("utf-8"))
                 if data['command'] == 'sil_update':
-                    self.LOG.info('distance_front_in_m {}'.format(data['distance_front_in_m']))
+                    #self.LOG.info('distance_front_in_m {}'.format(data['distance_front_in_m']))
                     self._distance_front_in_m = data['distance_front_in_m']
                 elif data['command'] == 'vil_update_velocity':
-                    self.LOG.info('vil velocity {}'.format(data['value']))
+                    #self.LOG.info('vil velocity {}'.format(data['value']))
                     self._velocity = data['value']
                 elif data['command'] == 'vil_update_angle':
-                    self.LOG.info('vil angle {}'.format(data['value']))
+                    #self.LOG.info('vil angle {}'.format(data['value']))
                     self._angle = data['value']
+                elif data['command'] == 'vil_status_motor_velocity':
+                    self.LOG.info('vil_status_motor_velocity {}'.format(data['value']))
+                    #self._angle = data['value']
             except:
                 self.LOG.error('problem')
                 

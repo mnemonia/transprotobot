@@ -1,14 +1,17 @@
 #ifndef DRIVE_H
 #define DRIVE_H
 #include <Arduino.h>
-#include <Adafruit_MotorShield.h>
+#include <Servo.h>
 
 class Drive {
   private:
-    double _speed;
+    double _velocity;
     double _angle;
     boolean _isFwd;
-    Adafruit_MotorShield _afms;
+    int _motorPinA1;
+    int _motorPinA2;
+    int _speedPinA;
+    Servo _steeringServo;
     
   public:
     Drive();

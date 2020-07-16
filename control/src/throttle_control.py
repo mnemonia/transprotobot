@@ -18,6 +18,9 @@ class ThrottleControl():
         self._gsl.publish('pac/tc/velocity', vel)
         res = dict()
         res["command"] = "vil_adjust_velocity"
+        if self._vel > 0:
+            self._vel = 1
+
         res["value"] = self._vel
         self._gsl.publishToVehicle(res)
 
@@ -41,4 +44,3 @@ class ThrottleControl():
         res["command"] = "vil_adjust_direction"
         res["value"] = 2
         self._gsl.publishToVehicle(res)
-

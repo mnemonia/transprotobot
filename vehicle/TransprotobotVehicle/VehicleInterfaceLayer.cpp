@@ -25,5 +25,5 @@ void VehicleInterfaceLayer::regulate() {
 }
 
 Drive* VehicleInterfaceLayer::drive() {
-  return &this->_drive;
+  return &_drive;
 }
