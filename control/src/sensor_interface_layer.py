@@ -71,45 +71,59 @@ class GpsService():
         self._altitude = 0
         self._heading = 0
         self._cartesianCoords = {"x": 0, "y": 0, "z": 0, "radius": 0, "nx": 0, "ny": 0, "nz": 0 }
+        self._rc_enable = 1
+        self._rc_direction = 0  # 0: stop, 1: fwd, 2: bwd
+        self._rc_velocity = 0
+        self._rc_angle = 0
+        self._client = mqtt.Client()
 
     def on(self):
         self.LOG.info('GpsService on ...')
-        client = mqtt.Client()
-
-        def on_connect(client, userdata, flags, rc):
-            self.LOG.info("Connected with result code " + str(rc))
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/milliseconds')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/fix')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/speed')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/angle')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/satellites')
-            client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading')
-
-        def on_message(client, userdata, msg):
-            self.LOG.info(msg.topic+" "+str(msg.payload))
-            if(msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude'):
-                self._latitude = float(msg.payload)
-            elif(msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude'):
-                self._longitude = float(msg.payload)
-            elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude'):
-                self._altitude = float(msg.payload)
-            elif(msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading'):
-                self._heading = float(msg.payload)
-
-        client.on_connect = on_connect
-        client.on_message = on_message
+        self._client.on_connect = self.on_connect
+        self._client.on_message = self.on_message
         self.LOG.info('GpsService connect')
-        client.connect("test.mosquitto.org", 1883, 60)
+        self._client.connect("test.mosquitto.org", 1883, 60)
         self.LOG.info('GpsService start')
-        client.loop_start()
+        self._client.loop_start()
         self.LOG.info('GpsService on done')
 
     def read(self):
         self.LOG.info('Read GPS')
 
+    def on_connect(self, client, userdata, flags, rc):
+        self.LOG.info("Connected with result code " + str(rc))
+        client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/pac/tc/velocity")
+        client.subscribe("/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/pac/sc/angle")
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/enable')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/direction')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/velocity')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/angle')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/milliseconds')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/fix')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/speed')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/angle')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/satellites')
+        client.subscribe('/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading')
+
+    def on_message(self, client, userdata, msg):
+        self.LOG.info("{} {}".format(msg.topic, float(msg.payload)))
+        if (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/latitude'):
+            self._latitude = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/longitude'):
+            self._longitude = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/gps/altitude'):
+            self._altitude = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/sil/compass/heading'):
+            self._heading = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/enable'):
+            self._rc_enable = int(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/direction'):
+            self._rc_direction = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/velocity'):
+            self._rc_velocity = float(msg.payload)
 
 class SensorInterfaceLayer():
     LOG = logging.getLogger('PathPlanner')
