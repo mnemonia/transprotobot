@@ -124,6 +124,8 @@ class GpsService():
             self._rc_direction = float(msg.payload)
         elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/velocity'):
             self._rc_velocity = float(msg.payload)
+        elif (msg.topic == '/654baff5-cd72-472a-859a-925afe5056f3/transprotobot/uil/rc/angle'):
+            self._rc_angle = float(msg.payload)
 
 class SensorInterfaceLayer():
     LOG = logging.getLogger('PathPlanner')
